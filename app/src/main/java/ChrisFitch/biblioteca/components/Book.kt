@@ -10,3 +10,14 @@ data class Book(
     val available: Boolean,
     val image: Int
 )
+
+fun borrowBook(): String {
+    val disponible = (0..1).random() == 1
+
+    return if (disponible) {
+        "Libro prestado"
+    } else {
+        val dias = (1..7).random()
+        "Libro no disponible. Espera $dias días"
+    }
+}
