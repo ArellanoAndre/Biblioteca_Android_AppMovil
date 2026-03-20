@@ -2,26 +2,20 @@ package ChrisFitch.biblioteca.ui.screens
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -29,8 +23,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ChrisFitch.biblioteca.components.Book
 import ChrisFitch.biblioteca.components.borrowBook
-import ChrisFitch.biblioteca.ui.theme.DarkBlue
-import ChrisFitch.biblioteca.ui.theme.OrangeCool
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -38,88 +30,146 @@ fun BookDetailScreen(
     book: Book,
     onBack: () -> Unit
 ) {
+
     val context = LocalContext.current
 
     Scaffold(
+
         topBar = {
             TopAppBar(
+
                 title = {
                     Text(
                         text = "Detalle del libro",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 24.sp
+                        fontSize = 20.sp
                     )
                 },
+
+                navigationIcon = {
+                    IconButton(onClick = { onBack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Regresar",
+                            tint = Color.White
+                        )
+                    }
+                },
+
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = OrangeCool,
-                    titleContentColor = DarkBlue
+                    containerColor = Color(0xFF8D6E63), // mismo login
+                    titleContentColor = Color.White
                 )
             )
-        }
+        },
+
+        containerColor = Color(0xFFF5EFE6)
+
     ) { innerPadding ->
 
         Column(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
+                .verticalScroll(rememberScrollState())
                 .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.Top
         ) {
+
             Card(
-                modifier = Modifier.fillMaxWidth(),
-                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+                shape = RoundedCornerShape(20.dp),
+                elevation = CardDefaults.cardElevation(8.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White),
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Column(modifier = Modifier.padding(16.dp)) {
+
+                Column(
+                    modifier = Modifier.padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
                     Image(
                         painter = painterResource(id = book.image),
                         contentDescription = book.title,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(250.dp)
+                            .height(240.dp)
+                            .clip(RoundedCornerShape(16.dp)),
+                        contentScale = ContentScale.Crop
                     )
 
                     Spacer(modifier = Modifier.height(16.dp))
 
-                    Text(text = book.title, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = book.title,
+                        fontSize = 22.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color(0xFF2C3E50)
+                    )
+
                     Spacer(modifier = Modifier.height(8.dp))
-                    Text(text = "Autor: ${book.author}", fontSize = 18.sp)
-                    Text(text = "Género: ${book.genre}", fontSize = 18.sp)
-                    Text(text = "Páginas: ${book.pages}", fontSize = 18.sp)
+
+                    Text("Autor: ${book.author}", fontSize = 16.sp)
+                    Text("Género: ${book.genre}", fontSize = 16.sp)
+                    Text("Páginas: ${book.pages}", fontSize = 16.sp)
+
+                    Spacer(modifier = Modifier.height(8.dp))
+
+                    // 🔥 Estado con color
                     Text(
                         text = if (book.available) "Disponible" else "No disponible",
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.SemiBold
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = if (book.available) Color(0xFF2ECC71) else Color(0xFFE74C3C)
                     )
 
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
-                        text = "Descripción:",
+                        text = "Descripción",
                         fontWeight = FontWeight.Bold,
                         fontSize = 18.sp
                     )
-                    Text(text = book.description, fontSize = 16.sp)
+
+                    Spacer(modifier = Modifier.height(4.dp))
+
+                    Text(
+                        text = book.description,
+                        fontSize = 15.sp,
+                        color = Color.DarkGray
+                    )
 
                     Spacer(modifier = Modifier.height(20.dp))
 
+                    // 🔥 Botón principal
                     Button(
                         onClick = {
                             Toast.makeText(context, borrowBook(), Toast.LENGTH_SHORT).show()
                         },
-                        modifier = Modifier.fillMaxWidth(),
-                        colors = ButtonDefaults.buttonColors(containerColor = OrangeCool)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFFE59866)
+                        )
                     ) {
-                        Text("Prestar libro")
+                        Text("Prestar libro", fontSize = 16.sp)
                     }
 
                     Spacer(modifier = Modifier.height(12.dp))
 
+                    // 🔥 Botón secundario
                     Button(
                         onClick = { onBack() },
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp),
+                        shape = RoundedCornerShape(14.dp),
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color(0xFF5D6D7E)
+                        )
                     ) {
-                        Text("Volver")
+                        Text("Volver", fontSize = 16.sp)
                     }
                 }
             }
