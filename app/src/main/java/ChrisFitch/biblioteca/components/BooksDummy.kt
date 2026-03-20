@@ -47,7 +47,30 @@ class BooksDummy {
             pages = 309,
             available = true,
             image = R.drawable.harrypoter
+        ),
+
+        Book(
+            title = "1984",
+            id = 6,
+            author = "George Orwell",
+            genre = "Distopía",
+            description = "Una crítica feroz a los totalitarismos y la vigilancia extrema.",
+            pages = 328,
+            available = true,
+            image = R.drawable.milnovecientos
+        ),
+
+        Book(
+            title = "El libro troll",
+            id = 7,
+            author = "ElRubius",
+            genre = "Comedia",
+            description = "Un libro muy troll con chistes y retos.",
+            pages = 432,
+            available = false,
+            image = R.drawable.troll
         )
+
 
     )
 

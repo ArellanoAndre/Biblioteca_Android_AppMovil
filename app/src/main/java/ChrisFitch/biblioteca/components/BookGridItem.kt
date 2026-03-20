@@ -35,23 +35,6 @@ fun BookGridItem(book: Book, onNavigationDetail: (id: Int) -> Unit) {
                 modifier = Modifier.size(150.dp),
                 contentScale = ContentScale.Fit
             )
-            Row(
-                Modifier
-                    .size(35.dp, 35.dp)
-                    .background(Color.DarkGray, shape = RoundedCornerShape(40.dp))
-                    .align(Alignment.TopEnd),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "${book.id}",
-                    color = Color.White,
-                    textAlign = TextAlign.Center,
-                    fontSize = 15.sp,
-                    fontWeight = FontWeight.Bold,
-                    lineHeight = 9.sp
-                )
-            }
         }
     }
 }
