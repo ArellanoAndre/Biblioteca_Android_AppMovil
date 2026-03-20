@@ -1,6 +1,7 @@
-package ChrisFitch.biblioteca.components
+package ChrisFitch.biblioteca.domain
 
 import ChrisFitch.biblioteca.R
+import ChrisFitch.biblioteca.components.Book
 
 class BooksDummy {
     val bookList = listOf(

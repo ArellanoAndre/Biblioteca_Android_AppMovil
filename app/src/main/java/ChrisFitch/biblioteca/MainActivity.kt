@@ -11,7 +11,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import ChrisFitch.biblioteca.ui.theme.BibliotecaTheme
 import ChrisFitch.biblioteca.ui.screens.BookListScreen
-import ChrisFitch.biblioteca.components.BooksDummy
+import ChrisFitch.biblioteca.domain.BooksDummy
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

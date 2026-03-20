@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import ChrisFitch.biblioteca.components.Book
 import ChrisFitch.biblioteca.components.BookGridItem
-import ChrisFitch.biblioteca.components.BooksDummy
+import ChrisFitch.biblioteca.domain.BooksDummy
 import ChrisFitch.biblioteca.ui.theme.DarkBlue
 import ChrisFitch.biblioteca.ui.theme.OrangeCool
 import androidx.compose.foundation.layout.Column
