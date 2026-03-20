@@ -36,6 +36,14 @@ fun BookGridItem(book: Book, onNavigationDetail: (id: Int) -> Unit) {
                 contentScale = ContentScale.Fit
             )
         }
+
+        Text(
+            text = "${book.title}",
+            textAlign = TextAlign.Center,
+            fontSize = 15.sp,
+            fontWeight = FontWeight.Bold,
+            lineHeight = 26.sp
+        )
     }
 }
 

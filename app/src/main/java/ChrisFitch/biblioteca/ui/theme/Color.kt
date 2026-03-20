@@ -10,7 +10,7 @@ val DarkBlue = Color(0xFF040643)
 
 val LilPurple = Color(0xFFAD61DB)
 
-val OrangeCool = Color(0xFFD47F4F)
+val OrangeCool = Color(0xFFF49C67)
 
 
 val Purple40 = Color(0xFF6650a4)
