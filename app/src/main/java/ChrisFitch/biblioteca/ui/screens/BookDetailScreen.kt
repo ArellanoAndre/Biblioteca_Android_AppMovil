@@ -57,7 +57,7 @@ fun BookDetailScreen(
                 },
 
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color(0xFF8D6E63), // mismo login
+                    containerColor = Color(0xFF8D6E63),
                     titleContentColor = Color.White
                 )
             )
@@ -114,9 +114,6 @@ fun BookDetailScreen(
 
                     Spacer(modifier = Modifier.height(8.dp))
 
-                    // 🔥 Estado con color
-
-
                     Spacer(modifier = Modifier.height(12.dp))
 
                     Text(
@@ -135,7 +132,6 @@ fun BookDetailScreen(
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // 🔥 Botón principal
                     Button(
                         onClick = {
                             Toast.makeText(context, borrowBook(), Toast.LENGTH_SHORT).show()
@@ -153,7 +149,6 @@ fun BookDetailScreen(
 
                     Spacer(modifier = Modifier.height(12.dp))
 
-                    // 🔥 Botón secundario
                     Button(
                         onClick = { onBack() },
                         modifier = Modifier
