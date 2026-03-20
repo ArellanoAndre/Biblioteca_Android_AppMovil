@@ -1,110 +1,128 @@
 package ChrisFitch.biblioteca.ui.screens
 
-import ChrisFitch.biblioteca.components.Book
-import ChrisFitch.biblioteca.ui.theme.DarkBlue
-import ChrisFitch.biblioteca.ui.theme.OrangeCool
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-
-@Composable
-fun BookCard(title: String,
-             author: String,
-             genre: String,
-             description: String,
-             pages: Int,
-             available: Boolean,
-             image: Int){
-    Box(contentAlignment = Alignment.TopCenter){
-        Image(
-            painter = painterResource(image),
-            contentDescription = title,
-            contentScale = ContentScale.Fit
-        )
-        Row() {
-            Column() {
-
-            }
-        }
-    }
-}
+import ChrisFitch.biblioteca.components.Book
+import ChrisFitch.biblioteca.components.borrowBook
+import ChrisFitch.biblioteca.ui.theme.DarkBlue
+import ChrisFitch.biblioteca.ui.theme.OrangeCool
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookDetailScreen(
-    book: Book
-    ) {
+    book: Book,
+    onBack: () -> Unit
+) {
+    val context = LocalContext.current
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
                     Text(
-                        "Biblioteca",
+                        text = "Detalle del libro",
                         fontWeight = FontWeight.Bold,
-                        fontSize = 30.sp
+                        fontSize = 24.sp
                     )
-                },
-                actions = {
-                    IconButton(onClick = { /*  */ }) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = "Buscar libro"
-                        )
-                    }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = OrangeCool,
-                    titleContentColor = DarkBlue,
-                    actionIconContentColor = DarkBlue
+                    titleContentColor = DarkBlue
                 )
             )
-            Spacer(modifier = Modifier.height(80.dp))
         }
-
     ) { innerPadding ->
-        LazyVerticalGrid(
-            columns = GridCells.Fixed(3),
+
+        Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(innerPadding),
-            contentPadding = PaddingValues(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            horizontalArrangement = Arrangement.spacedBy(10.dp)
+                .padding(innerPadding)
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
+            verticalArrangement = Arrangement.Top
         ) {
+            Card(
+                modifier = Modifier.fillMaxWidth(),
+                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+            ) {
+                Column(modifier = Modifier.padding(16.dp)) {
+                    Image(
+                        painter = painterResource(id = book.image),
+                        contentDescription = book.title,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(250.dp)
+                    )
+
+                    Spacer(modifier = Modifier.height(16.dp))
+
+                    Text(text = book.title, fontSize = 24.sp, fontWeight = FontWeight.Bold)
+                    Spacer(modifier = Modifier.height(8.dp))
+                    Text(text = "Autor: ${book.author}", fontSize = 18.sp)
+                    Text(text = "Género: ${book.genre}", fontSize = 18.sp)
+                    Text(text = "Páginas: ${book.pages}", fontSize = 18.sp)
+                    Text(
+                        text = if (book.available) "Disponible" else "No disponible",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.SemiBold
+                    )
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Text(
+                        text = "Descripción:",
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 18.sp
+                    )
+                    Text(text = book.description, fontSize = 16.sp)
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Button(
+                        onClick = {
+                            Toast.makeText(context, borrowBook(), Toast.LENGTH_SHORT).show()
+                        },
+                        modifier = Modifier.fillMaxWidth(),
+                        colors = ButtonDefaults.buttonColors(containerColor = OrangeCool)
+                    ) {
+                        Text("Prestar libro")
+                    }
+
+                    Spacer(modifier = Modifier.height(12.dp))
+
+                    Button(
+                        onClick = { onBack() },
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text("Volver")
+                    }
+                }
+            }
         }
     }
-}
-
-@Preview
-@Composable
-fun GreetingPreview() {
-    BookDetailScreen()
 }
