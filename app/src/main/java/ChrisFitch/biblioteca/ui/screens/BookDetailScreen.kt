@@ -115,12 +115,7 @@ fun BookDetailScreen(
                     Spacer(modifier = Modifier.height(8.dp))
 
                     // 🔥 Estado con color
-                    Text(
-                        text = if (book.available) "Disponible" else "No disponible",
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = if (book.available) Color(0xFF2ECC71) else Color(0xFFE74C3C)
-                    )
+
 
                     Spacer(modifier = Modifier.height(12.dp))
 
